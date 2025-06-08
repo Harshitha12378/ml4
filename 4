@@ -1,0 +1,21 @@
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv(r"E:\Machine_learning_lab\training_find_s.csv")
+attributes = np.array(df)[:, :-1]
+target = np.array(df)[:, -1]
+
+def find_s_algorithm(attributes, target):
+    for i, val in enumerate(target):
+        if val.lower() == "yes":
+            specific_hypothesis = attributes[i].copy()
+            break
+    for i, instance in enumerate(attributes):
+        if target[i].lower() == "yes":
+            for attr_index in range(len(specific_hypothesis)):
+                if instance[attr_index] != specific_hypothesis[attr_index]:
+                    specific_hypothesis[attr_index] = '?'
+    return specific_hypothesis
+
+final_hypothesis = find_s_algorithm(attributes, target)
+print("\nFinal Hypothesis:", final_hypothesis)
